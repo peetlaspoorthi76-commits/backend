@@ -1,4 +1,3 @@
-
 export const successResponse = (res, data, message = 'Success', statusCode = 200) => {
   res.status(statusCode).json({ success: true, message, data });
 };
@@ -8,6 +7,7 @@ export const errorResponse = (res, message = 'Error', statusCode = 500, errors =
 };
 
 export const paginatedResponse = (res, data, total, page, limit) => {
+  const pages = Math.ceil(total / limit) || 1;
   res.status(200).json({
     success: true,
     data,
@@ -15,7 +15,9 @@ export const paginatedResponse = (res, data, total, page, limit) => {
       total,
       page,
       limit,
-      pages: Math.ceil(total / limit)
-    }
+      pages,
+      hasNext: page < pages,
+      hasPrev: page > 1,
+    },
   });
 };

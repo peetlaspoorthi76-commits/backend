@@ -26,6 +26,8 @@ leadSchema.virtual('age').get(function() {
 
 // Indexes for performance
 leadSchema.index({ owner: 1, status: 1 });
+leadSchema.index({ owner: 1, source: 1 });
+leadSchema.index({ owner: 1, createdAt: -1 });
 leadSchema.index({ email: 1 });
 
 const Lead = mongoose.model('Lead', leadSchema);
